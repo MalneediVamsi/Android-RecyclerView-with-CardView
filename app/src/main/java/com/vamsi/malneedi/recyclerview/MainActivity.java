@@ -10,35 +10,73 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
-    private Context context;
+    private List<NatureItem> mItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        context = this;
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new CardAdapter();
-        mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
+        createList();
+
+        mAdapter = new CardAdapter(this, mItems);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
+    public List<NatureItem> createList() {
+        mItems = new ArrayList<NatureItem>();
+        NatureItem nature = new NatureItem();
+        nature.setName("The Great Barrier Reef");
+        nature.setDes("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt" +
+                "ut labore et dolore magna aliqua. Ut enim ad minim veniam.");
+        nature.setThumbnail(R.drawable.download);
+        mItems.add(nature);
+
+        nature = new NatureItem();
+        nature.setName("Grand Canyon");
+        nature.setDes("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt" +
+                "ut labore et dolore magna aliqua.");
+        nature.setThumbnail(R.drawable.download);
+        mItems.add(nature);
+
+        nature = new NatureItem();
+        nature.setName("Baltoro Glacier");
+        nature.setDes("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt" +
+                "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.");
+        nature.setThumbnail(R.drawable.download);
+        mItems.add(nature);
+
+        nature = new NatureItem();
+        nature.setName("Iguazu Falls");
+        nature.setDes("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt" +
+                "ut labore et dolore magna aliqua. Ut enim ad minim veniam.");
+        nature.setThumbnail(R.drawable.download);
+        mItems.add(nature);
+
+
+        nature = new NatureItem();
+        nature.setName("Aurora Borealis");
+        nature.setDes("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt" +
+                "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.");
+        nature.setThumbnail(R.drawable.download);
+        mItems.add(nature);
+
+        return mItems;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

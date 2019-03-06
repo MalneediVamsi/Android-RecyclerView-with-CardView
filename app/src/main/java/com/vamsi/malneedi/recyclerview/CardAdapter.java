@@ -1,11 +1,13 @@
 package com.vamsi.malneedi.recyclerview;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,46 +19,12 @@ import java.util.List;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
-    List<NatureItem> mItems;
+    private List<NatureItem> mItems;
+    private Context context;
 
-    public CardAdapter() {
-        super();
-        mItems = new ArrayList<NatureItem>();
-        NatureItem nature = new NatureItem();
-        nature.setName("The Great Barrier Reef");
-        nature.setDes("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt" +
-                "ut labore et dolore magna aliqua. Ut enim ad minim veniam.");
-        nature.setThumbnail(R.drawable.download);
-        mItems.add(nature);
-
-        nature = new NatureItem();
-        nature.setName("Grand Canyon");
-        nature.setDes("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt" +
-                "ut labore et dolore magna aliqua.");
-        nature.setThumbnail(R.drawable.download);
-        mItems.add(nature);
-
-        nature = new NatureItem();
-        nature.setName("Baltoro Glacier");
-        nature.setDes("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt" +
-                "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.");
-        nature.setThumbnail(R.drawable.download);
-        mItems.add(nature);
-
-        nature = new NatureItem();
-        nature.setName("Iguazu Falls");
-        nature.setDes("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt" +
-                "ut labore et dolore magna aliqua. Ut enim ad minim veniam.");
-        nature.setThumbnail(R.drawable.download);
-        mItems.add(nature);
-
-
-        nature = new NatureItem();
-        nature.setName("Aurora Borealis");
-        nature.setDes("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt" +
-                "ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.");
-        nature.setThumbnail(R.drawable.download);
-        mItems.add(nature);
+    public CardAdapter(Context context, List<NatureItem> mItems) {
+        this.mItems = mItems;
+        this.context = context;
     }
 
     @Override
@@ -73,6 +41,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         viewHolder.tvNature.setText(nature.getName());
         viewHolder.tvDesNature.setText(nature.getDes());
         viewHolder.imgThumbnail.setImageResource(nature.getThumbnail());
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Clicked " + i, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -80,7 +55,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         return mItems.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView imgThumbnail;
         public TextView tvNature;
@@ -88,9 +63,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
         public ViewHolder(View itemView) {
             super(itemView);
-            imgThumbnail = (ImageView)itemView.findViewById(R.id.img_thumbnail);
-            tvNature = (TextView)itemView.findViewById(R.id.tv_nature);
-            tvDesNature = (TextView)itemView.findViewById(R.id.tv_des_nature);
+            imgThumbnail = (ImageView) itemView.findViewById(R.id.img_thumbnail);
+            tvNature = (TextView) itemView.findViewById(R.id.tv_nature);
+            tvDesNature = (TextView) itemView.findViewById(R.id.tv_des_nature);
         }
     }
 }
